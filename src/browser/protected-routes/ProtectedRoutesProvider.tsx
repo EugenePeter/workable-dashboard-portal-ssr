@@ -39,7 +39,7 @@ const ProtectedRoutesProvider: React.FC<any> = (props) => {
       setAuthenticated(isAuthorize);
       setCompanyId(company_id);
     });
-  }, []);
+  }, [URL]);
 
   console.log("IS AUTH:", isAuthenticated);
 

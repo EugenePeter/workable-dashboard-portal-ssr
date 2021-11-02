@@ -47,58 +47,49 @@ const CleverTabs = <T extends Idata>(props: CleverTabsProps<T>) => {
   }, [tabs, active_tab.application_id]);
 
   return (
-    <Switch>
-      {tabs &&
-        tabs.map((routes: any) => (
-          <Route path={`/${routes.url}`} key={`routes--${routes.application_id}`}>
-            <CleverTabsContainer className="clever-tabs_container">
-              <StyledTabsParent
-                className="tab-parent"
-                selectedIndex={tabIndex}
-                onSelect={(index) => setTabIndex(index)}
-                key="123"
-              >
-                {
-                  <StyledTabList className="tab-list" key="432">
-                    {tabs.map((tab: any, index: number) => (
-                      <StyledTab
-                        className="tab-title"
-                        key={tab.application_id}
-                        onClick={() => navigate.push(`/${tab.url}`)}
-                      >
-                        {tab.application_name}
-                        <CloseTab>x</CloseTab>
-                      </StyledTab>
-                    ))}
-                  </StyledTabList>
-                }
+    <>
+      <CleverTabsContainer className="clever-tabs_container">
+        <StyledTabsParent
+          className="tab-parent"
+          selectedIndex={tabIndex}
+          onSelect={(index) => setTabIndex(index)}
+          key="123"
+        >
+          {
+            <StyledTabList className="tab-list" key="432">
+              {tabs.map((tab: any, index: number) => (
+                <StyledTab
+                  className="tab-title"
+                  key={tab.application_id}
+                  onClick={() => navigate.push(`/${tab.url}`)}
+                >
+                  {tab.application_name}
+                  <CloseTab>x</CloseTab>
+                </StyledTab>
+              ))}
+            </StyledTabList>
+          }
 
-                {tabs.map((tab: ITabs, index: number) => {
-                  const { component_name, application_id } = tab;
-                  console.log("TAAAAAABS", tab);
+          {tabs.map((tab: ITabs, index: number) => {
+            const { component_name, application_id } = tab;
+            console.log("TAAAAAABS", tab);
 
-                  return (
-                    <StyledTabPanel className="tab-content">
-                      {component_name && (
-                        <ApplicationMapper
-                          key={application_id ?? (index || index)}
-                          // component_name={component_name}
-                          component={component[component_name]}
-                        />
-                      )}
-                      <Footer>Architected, designed and developed by Eugene Peter Maestrado</Footer>
-                    </StyledTabPanel>
-                  );
-                })}
-              </StyledTabsParent>
-            </CleverTabsContainer>
-          </Route>
-        ))}
-
-      <Route path="/page-not-found">
-        <h1>ARE YOU LOST?</h1>
-      </Route>
-    </Switch>
+            return (
+              <StyledTabPanel className="tab-content">
+                {component_name && (
+                  <ApplicationMapper
+                    key={application_id ?? (index || index)}
+                    // component_name={component_name}
+                    component={component[component_name]}
+                  />
+                )}
+                <Footer>Architected, designed and developed by Eugene Peter Maestrado</Footer>
+              </StyledTabPanel>
+            );
+          })}
+        </StyledTabsParent>
+      </CleverTabsContainer>
+    </>
   );
 };
 

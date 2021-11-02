@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, lazy, Suspense } from "react";
 import { RecordContext } from "../RecordProvider";
 import { useSelector, useActor } from "@xstate/react";
 import { ActorRef } from "xstate";
-import { CleverTabs } from "../../../global-components";
+// import { CleverTabs } from "../../../global-components";
 import { Main } from "../../../global-components";
 import { Idata } from "../types";
 import * as Components from "../../../atomic";
@@ -10,6 +10,8 @@ import * as Components from "../../../atomic";
 import { useHistory, useParams, Switch, Route } from "react-router-dom";
 
 import styled from "styled-components";
+
+const CleverTabs = lazy(() => import("../../../global-components/clever-tabs"));
 
 const MainContainer: React.FC<any> = () => {
   const record_context = useContext(RecordContext);
@@ -54,9 +56,11 @@ const MainContainer: React.FC<any> = () => {
 
         {/* <Footer>Architected, designed and developed by Eugene Peter Maestrado</Footer> */}
         <Switch>
-          <Route path="/:id">
+          <Suspense fallback={<div>...LOADING</div>}>
             <CleverTabs data={data} component={Components} />
-          </Route>
+          </Suspense>
+          {/* </Route>
+          <Route path="/:id"> */}
         </Switch>
       </Container>
     </Main>
